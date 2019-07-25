@@ -1,1 +1,17 @@
-<p>add-employee works!</p>
+<form [formGroup]="addEmployeeForm">
+  <div class="row">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="name">სახელი</span>
+        </div>
+        <input formControlName="name" type="text" class="form-control" aria-label="Default" aria-describedby="name">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="lastName">გვარი</span>
+        </div>
+        <input formControlName="lastName" type="text" class="form-control" aria-label="Default" aria-describedby="lastName">
+      </div>
+      <button id="addEmployee" class="btn btn-primary" (click)="onAddEmployee()">დამატება</button>
+  </div>
+</form>

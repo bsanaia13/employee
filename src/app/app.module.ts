@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { EmployeeModule } from './employee/employee.module';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+];
 
 @NgModule({
   declarations: [
@@ -10,7 +15,8 @@ import { EmployeeModule } from './employee/employee.module';
   ],
   imports: [
     BrowserModule,
-    EmployeeModule
+    EmployeeModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

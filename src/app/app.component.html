@@ -1,19 +1,12 @@
 <div class="container">
   <div class="row justify-content-md-center">
     <div class="col col-lg-2">
-      <a role="presentation">Employees</a>
+      <a routerLink="/employees" style="cursor: pointer; text-decoration: none" role="presentation">Employees</a>
     </div>
     <div class="col col-lg-2">
-      <a role="presentation">Add Employee</a>
+      <a routerLink="/add-employee" style="cursor: pointer; text-decoration: none" role="presentation">Add Employee</a>
     </div>
   </div>
   <br>
-  <div class="row">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
-      </div>
-      <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 </div>
