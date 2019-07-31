@@ -93,7 +93,7 @@ app.post('/upload', upload.single('file'), (req, res, next) => {
     for (let i = 1; i < rows.length; i++) {
       client.query(`INSERT INTO employee(name, lastName, idNumber, birthDay, nationality, salary, currency, mobile)
        VALUES('${rows[i][0]}', '${rows[i][1]}', '${rows[i][2]}', 
-       '${rows[i][3]}', '${rows[i][4]}', '${rows[i][5]}',
+       '${formatDate(rows[i][3])}', '${rows[i][4]}', '${rows[i][5]}',
         '${rows[i][6]}', '${rows[i][7]}')`,
             function (err, result) {
               if(err) {
@@ -110,6 +110,18 @@ app.post('/upload', upload.single('file'), (req, res, next) => {
   }
   res.send(file)
 });
+
+function formatDate(date) {
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [day, month, year].join('-');
+}
 
 
 // SERVER RUNNING
