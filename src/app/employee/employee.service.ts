@@ -14,4 +14,9 @@ export class EmployeeService {
   getEmployees() {
     return this.http.get('http://127.0.0.1:5000/get');
   }
+
+  editEmployee(employee: any, id: string) {
+    employee.id = id;
+    return this.http.post('http://127.0.0.1:5000/edit', employee);
+  }
 }

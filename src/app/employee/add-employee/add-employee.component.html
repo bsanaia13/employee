@@ -1,17 +1,111 @@
 <form [formGroup]="addEmployeeForm">
   <div class="row">
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="name">სახელი</span>
-        </div>
-        <input formControlName="name" type="text" class="form-control" aria-label="Default" aria-describedby="name">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="name">სახელი</span>
       </div>
-      <div class="input-group mb-3">
+      <input formControlName="name" type="text" class="form-control" aria-label="Default" aria-describedby="name">            <span>*</span>
+
+    </div>
+    <span class="help-block" *ngIf="this.addEmployeeForm.get('name').invalid && this.addEmployeeForm.get('name').touched">
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('name').errors['required']">this field is required!</span>
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('name').errors['validName']">please enter valid name</span>
+    </span>
+
+
+    <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="lastName">გვარი</span>
         </div>
-        <input formControlName="lastName" type="text" class="form-control" aria-label="Default" aria-describedby="lastName">
+        <input formControlName="lastName" type="text" class="form-control" aria-label="Default" aria-describedby="lastName">            <span>*</span>
+
+    </div>
+    <span class="help-block" *ngIf="this.addEmployeeForm.get('lastName').invalid && this.addEmployeeForm.get('lastName').touched">
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('lastName').errors['required']">this field is required!</span>
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('lastName').errors['validName']">please enter valid last name</span>
+    </span>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="piradiNom">პირადი ნომერი</span>
+        </div>
+        <input formControlName="idNumber" type="text" class="form-control" aria-label="Default" aria-describedby="piradiNom">            <span>*</span>
+
       </div>
-      <button id="addEmployee" class="btn btn-primary" (click)="onAddEmployee()">დამატება</button>
+    <span class="help-block" *ngIf="this.addEmployeeForm.get('idNumber').invalid && this.addEmployeeForm.get('idNumber').touched">
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('idNumber').errors['required']">this field is required!</span>
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('idNumber').errors['validIdNumber']">please enter valid ID number</span>
+    </span>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="bday">დაბადების თარიღი</span>
+        </div>
+        <input formControlName="birthDay"
+               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+               bsDatepicker
+               class="form-control"
+               aria-label="Default"
+               aria-describedby="bday"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+        >
+        <span>*</span>
+
+      </div>
+    <span class="help-block" *ngIf="this.addEmployeeForm.get('birthDay').invalid && this.addEmployeeForm.get('birthDay').touched">
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('birthDay').errors['required']">Please Select Birth Day</span>
+    </span>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="erovneba">ეროვნება</label>
+      </div>
+      <select class="custom-select" id="erovneba" (change)="countryChanged()" formControlName="nationality">
+        <option disabled [ngValue]="undefined">აირჩიე ეროვნება...</option>
+        <option [ngValue]="country" *ngFor="let country of countries">{{country.name}}</option>
+      </select>
+      <span>*</span>
+
+    </div>
+    <span class="help-block" *ngIf="this.addEmployeeForm.get('nationality').invalid && this.addEmployeeForm.get('nationality').touched">
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('nationality').errors['required']">Please Select Nationality</span>
+    </span>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="xelfasi">ხელფასი</span>
+        </div>
+        <input formControlName="salary" type="number" step="0.01" class="form-control" aria-label="Default" aria-describedby="xelfasi"><br>
+      </div>
+    <span class="help-block" *ngIf="this.addEmployeeForm.get('salary').invalid && this.addEmployeeForm.get('salary').touched">
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('salary').errors['min']">Value should be greater than 0</span>
+    </span>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="valuta">ვალუტა</label>
+      </div>
+      <select class="custom-select" id="valuta" formControlName="currency">
+        <option disabled [ngValue]="undefined">აირჩიე ვალუტა...</option>
+        <option value="GEL">GEL</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+      </select>
+    </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="mobile">მობილური</span>
+        </div>
+        <input formControlName="mobile" type="text" class="form-control" aria-label="Default" aria-describedby="mobile" placeholder="{{this.callCode}}">
+      </div>
+    <span class="help-block" *ngIf="this.addEmployeeForm.get('mobile').invalid && (this.addEmployeeForm.get('mobile').value !== '' && this.addEmployeeForm.get('mobile').dirty)">
+            <span class="form-text" style="color: red" *ngIf="this.addEmployeeForm.get('mobile').errors['validMobile']">please enter valid mobile</span>
+    </span>
+
+    <button id="addEmployee" [disabled]="this.addEmployeeForm.invalid" class="btn btn-primary" (click)="onAddEmployee()">დამატება</button>
+    <br><br><br>
   </div>
 </form>
+<app-upload></app-upload>
